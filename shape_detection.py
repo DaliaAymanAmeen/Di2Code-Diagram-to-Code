@@ -12,43 +12,63 @@ def shape_detection (image):
     
     # list of (x,y) to store the coordinates of each detected rectangle
     coordinates = []
+    relations = []
 
     # dictionary to store for example: class1: [(x_className,y_className), (x_attribute, y_attribute), (x_method, y_method)]
     class_dictionary = defaultdict(list)
 
     for contour in contours:
+<<<<<<< Updated upstream
+=======
+        approx = cv2.approxPolyDP(contour, 0.04 * cv2.arcLength(contour, True), True)
+
+        if len(approx) == 3:
+            x = approx.ravel()[0]
+            y = approx.ravel()[1] 
+            if (cv2.contourArea(contour) > 500):
+                cv2.drawContours(img, [approx], 0, (0, 0, 0), 2)
+                relations.append([x, y])
+                #cv2.putText(img, "T", (x, y), cv2.FONT_HERSHEY_COMPLEX, 0.5, (0, 0, 0))
+>>>>>>> Stashed changes
 
         approx = cv2.approxPolyDP(contour, 0.04 * cv2.arcLength(contour, True), True)
         #if len(approx) == 3:
             #cv2.drawContours(img, [approx], 0, (0, 0, 0), 2)
         if len(approx) == 4:
+<<<<<<< Updated upstream
             x1, y1, w, h = cv2.boundingRect(approx)
             if ((w*h) > 1500):
 
+=======
+            x, y, w, h = cv2.boundingRect(approx)
+
+            if ((w*h) > 1500):
+>>>>>>> Stashed changes
                 cv2.drawContours(img, [approx], 0, (0, 0, 0), 2)
-                x = approx.ravel()[0]
-                y = approx.ravel()[1] - 5
-                coordinates.append([x, y])
+                coordinates.append([x, y, w, h])
 
     coordinates.sort()
 
-    i = 0
+    i = -1
     x_prev = 0
 
     for rectangle in coordinates:
         x = rectangle[0]
         y = rectangle[1]
+        w = rectangle[2]
+        h = rectangle[3]
 
         if (x == 0): # the frame of the image (ignore it)
             continue
-
-        if (x != x_prev): # if it's not the same x (this is mean it's a new class)
+            
+        if (x != x_prev and (x < (x_prev-10) or x > (x_prev+10))): # if it's not the same x (this is mean it's a new class)
             i += 1
 
-        class_dictionary["class"+str(i)].append([x,y])
+        class_dictionary[i].append([x, y, w, h])
         x_prev = x
         
     cv2.imshow("shapes", img)
-    return class_dictionary
+    return class_dictionary, relations
 
 
+    
