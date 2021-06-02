@@ -17,12 +17,14 @@ def shape_detection (image):
     class_dictionary = defaultdict(list)
 
     for contour in contours:
-        approx = cv2.approxPolyDP(contour, 0.01 * cv2.arcLength(contour, True), True)
 
+        approx = cv2.approxPolyDP(contour, 0.04 * cv2.arcLength(contour, True), True)
+        #if len(approx) == 3:
+            #cv2.drawContours(img, [approx], 0, (0, 0, 0), 2)
         if len(approx) == 4:
             x1, y1, w, h = cv2.boundingRect(approx)
+            if ((w*h) > 1500):
 
-            if ((w*h) > 100):
                 cv2.drawContours(img, [approx], 0, (0, 0, 0), 2)
                 x = approx.ravel()[0]
                 y = approx.ravel()[1] - 5
