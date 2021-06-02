@@ -2,16 +2,9 @@ import shape_detection
 import cv2
 import classes 
 
-<<<<<<< Updated upstream
-
-print (shape_detection.shape_detection("test_images/test_handwritten (2).jpeg"))
-
-=======
-print (shape_detection.shape_detection("test_images/test_handwritten.jpeg"))
-class_dictionary, relations = shape_detection.shape_detection("test_images/test_handwritten.jpeg")
+print (shape_detection.shape_detection("test_images/final.jpeg"))
+class_dictionary, relations = shape_detection.shape_detection("test_images/final.jpeg")
 #ocr_dictionary = 
->>>>>>> Stashed changes
-
 
 # to create instance for each class 
 classes_list = []

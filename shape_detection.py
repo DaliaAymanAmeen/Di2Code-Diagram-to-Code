@@ -18,8 +18,6 @@ def shape_detection (image):
     class_dictionary = defaultdict(list)
 
     for contour in contours:
-<<<<<<< Updated upstream
-=======
         approx = cv2.approxPolyDP(contour, 0.04 * cv2.arcLength(contour, True), True)
 
         if len(approx) == 3:
@@ -29,21 +27,15 @@ def shape_detection (image):
                 cv2.drawContours(img, [approx], 0, (0, 0, 0), 2)
                 relations.append([x, y])
                 #cv2.putText(img, "T", (x, y), cv2.FONT_HERSHEY_COMPLEX, 0.5, (0, 0, 0))
->>>>>>> Stashed changes
 
         approx = cv2.approxPolyDP(contour, 0.04 * cv2.arcLength(contour, True), True)
         #if len(approx) == 3:
             #cv2.drawContours(img, [approx], 0, (0, 0, 0), 2)
         if len(approx) == 4:
-<<<<<<< Updated upstream
-            x1, y1, w, h = cv2.boundingRect(approx)
-            if ((w*h) > 1500):
 
-=======
             x, y, w, h = cv2.boundingRect(approx)
 
             if ((w*h) > 1500):
->>>>>>> Stashed changes
                 cv2.drawContours(img, [approx], 0, (0, 0, 0), 2)
                 coordinates.append([x, y, w, h])
 
