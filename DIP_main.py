@@ -1,7 +1,7 @@
 import shape_detection 
 import cv2
 import classes 
-
+import draw
 #shape dictionary
 print (shape_detection.shape_detection("test_images/doaa.png"))
 shapes_dictionary, relations = shape_detection.shape_detection("test_images/doaa.png")
@@ -40,7 +40,12 @@ for object in classes_list:
     object.is_parent(relations)
     object.matching(ocr_dictionary)
     object.show_info()
-    
+
+
+#draw classes 
+draw.draw_diagram(classes_list,ocr_dictionary,"test_images/output.png")
+
+
 cv2.waitKey(0)
 cv2.destroyAllWindows()
 

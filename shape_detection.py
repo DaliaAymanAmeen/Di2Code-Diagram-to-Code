@@ -24,7 +24,7 @@ def shape_detection (image):
         if len(approx) == 3:
             x = approx.ravel()[0]
             y = approx.ravel()[1] 
-            if (cv2.contourArea(contour) > 100):
+            if (cv2.contourArea(contour) > 30):
                 cv2.drawContours(img, [approx], 0, (0, 0, 255), 2)
                 relations.append([x, y])
                 #cv2.putText(img, "T", (x, y), cv2.FONT_HERSHEY_COMPLEX, 0.5, (0, 0, 0))
