@@ -4,6 +4,7 @@ from collections import defaultdict
 
 def shape_detection (image):
     img = cv2.imread(image)
+    img = cv2.resize(img, None, fx=0.5, fy=0.5, interpolation=cv2.INTER_CUBIC)
     imgGrey = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
     _, thrash = cv2.threshold(imgGrey, 240, 255, cv2.THRESH_BINARY)
     contours, _ = cv2.findContours(thrash, cv2.RETR_TREE, cv2.CHAIN_APPROX_NONE)
@@ -23,20 +24,15 @@ def shape_detection (image):
         if len(approx) == 3:
             x = approx.ravel()[0]
             y = approx.ravel()[1] 
-            if (cv2.contourArea(contour) > 500):
-                cv2.drawContours(img, [approx], 0, (0, 0, 0), 2)
+            if (cv2.contourArea(contour) > 100):
+                cv2.drawContours(img, [approx], 0, (0, 0, 255), 2)
                 relations.append([x, y])
                 #cv2.putText(img, "T", (x, y), cv2.FONT_HERSHEY_COMPLEX, 0.5, (0, 0, 0))
 
-        approx = cv2.approxPolyDP(contour, 0.04 * cv2.arcLength(contour, True), True)
-        #if len(approx) == 3:
-            #cv2.drawContours(img, [approx], 0, (0, 0, 0), 2)
         if len(approx) == 4:
-
             x, y, w, h = cv2.boundingRect(approx)
-
             if ((w*h) > 1500):
-                cv2.drawContours(img, [approx], 0, (0, 0, 0), 2)
+                cv2.drawContours(img, [approx], 0, (0, 255, 0), 2)
                 coordinates.append([x, y, w, h])
 
     coordinates.sort()
