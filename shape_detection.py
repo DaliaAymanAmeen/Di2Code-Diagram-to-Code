@@ -4,7 +4,16 @@ from collections import defaultdict
 
 def shape_detection (image):
     img = cv2.imread(image)
-    img = cv2.resize(img, None, fx=0.5, fy=0.5, interpolation=cv2.INTER_CUBIC)
+    img_h , img_w, _ = img.shape
+
+    if ((img_h >= 1000)  or (img_w >= 1000)):
+        img = cv2.resize(img, None, fx=0.5, fy=0.5)
+    if (((img_h < 1000) & (img_h>=550))  or ((img_w < 1000) & (img_w>=550))):
+        img = cv2.resize(img, None, fx=1.1, fy=1.1, interpolation=cv2.INTER_CUBIC)
+    if ((img_h < 550)  & (img_w < 550)):
+        img = cv2.resize(img, None, fx=1.2, fy=1.2, interpolation=cv2.INTER_CUBIC)
+
+    #img = cv2.resize(img, None, fx=0.5, fy=0.5, interpolation=cv2.INTER_CUBIC)
     imgGrey = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
     _, thrash = cv2.threshold(imgGrey, 240, 255, cv2.THRESH_BINARY)
     contours, _ = cv2.findContours(thrash, cv2.RETR_TREE, cv2.CHAIN_APPROX_NONE)
@@ -51,6 +60,9 @@ def shape_detection (image):
             
         if (x != x_prev and (x < (x_prev-10) or x > (x_prev+10))): # if it's not the same x (this is mean it's a new class)
             i += 1
+
+        if (i == -1):
+            i +=1
 
         class_dictionary[i].append([x, y, w, h])
         x_prev = x

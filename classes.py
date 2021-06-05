@@ -44,7 +44,7 @@ class Classes:
             [x, y, w, h] = self.methods_coordinates
             x_co = x + (w/2)
             y_co = y + h
-            if ( (relation[0] < x_co+100 and relation[0] > x_co-100) and (relation[1] < y_co+150 and relation[1] > y_co-150) ):
+            if ( (relation[0] < x_co + 100 and relation[0] > x_co - 100) and (relation[1] < y_co + 150 and relation[1] > y_co - 150) ):
                 self.isParent = True 
 
     def matching (self, ocr_dictionary):
