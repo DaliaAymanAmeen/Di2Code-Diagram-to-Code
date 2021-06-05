@@ -7,8 +7,9 @@ import draw
 print (shape_detection.shape_detection("test_images/new.png"))
 shapes_dictionary, relations = shape_detection.shape_detection("test_images/new.png")
 
-#ocr dictionary = 
-ocr_dictionary = {'User': [[414, 47]], '-': [[274, 105], [274, 125], [274, 146], [49, 427], [49, 447], [49, 468], [49, 488], [49, 508], [49, 689], [49, 709], [462, 446], [462, 466]], 'user_id': [[285, 98]], 'password': [[285, 118]], 'login_status': [[285, 138]], '+': [[274, 206], [274, 226], [49, 543], [49, 563], [49, 603], [49, 624], [49, 644], [49, 664], [462, 536], [462, 556]], 'verify_loginQ.': [[288, 203]], 'user_id()': [[289, 223]], 'Customer': [[170, 384]], 'customer_name': [[59, 421]], 'address': [[59, 440]], 'email': [[59, 460], [472, 459]], 'credit_card_info': [[59, 481]], 'shipping_info': [[59, 501]], 'customer_name()': [[64, 540]], 'address()': [[64, 560]], '+email()': [[49, 581]], 'bill': [[64, 601]], 'register()': [[64, 621]], 'login()': [[64, 641]], 'update_profile()': [[64, 662]], 'calculate_next_bill_amount()': [[59, 682]], 'generate_invoice_pdf_version()': [[59, 702]], 'Admin': [[595, 383]], 'admin_name': [[472, 439]], 'update_catalog()': [[476, 533]], 'email()': [[476, 554]]}
+#ocr dictionary 
+#ocr_dictionary = {'User': [[414, 47]], '-': [[274, 105], [274, 125], [274, 146], [49, 427], [49, 447], [49, 468], [49, 488], [49, 508], [49, 689], [49, 709], [462, 446], [462, 466]], 'user_id': [[285, 98]], 'password': [[285, 118]], 'login_status': [[285, 138]], '+': [[274, 206], [274, 226], [49, 543], [49, 563], [49, 603], [49, 624], [49, 644], [49, 664], [462, 536], [462, 556]], 'verify_loginQ.': [[288, 203]], 'user_id()': [[289, 223]], 'Customer': [[170, 384]], 'customer_name': [[59, 421]], 'address': [[59, 440]], 'email': [[59, 460], [472, 459]], 'credit_card_info': [[59, 481]], 'shipping_info': [[59, 501]], 'customer_name()': [[64, 540]], 'address()': [[64, 560]], '+email()': [[49, 581]], 'bill': [[64, 601]], 'register()': [[64, 621]], 'login()': [[64, 641]], 'update_profile()': [[64, 662]], 'calculate_next_bill_amount()': [[59, 682]], 'generate_invoice_pdf_version()': [[59, 702]], 'Admin': [[595, 383]], 'admin_name': [[472, 439]], 'update_catalog()': [[476, 533]], 'email()': [[476, 554]]}
+ocr_dictionary = {'Person': [[189, 14]], '‘age:': [[152, 46]], 'int': [[201, 42], [250, 74]], 'get_age()': [[152, 73]], ':': [[236, 79], [37, 327], [333, 327], [99, 355], [361, 355]], 'Student': [[45, 294]], 'Professor': [[315, 294]], 'id': [[14, 321]], 'str': [[50, 323], [346, 324]], 'title': [[292, 321]], 'get_gpa()': [[13, 349]], 'float': [[113, 350]], 'teach()': [[291, 349]], 'None': [[372, 350]]}
 
 # to create instance for each class 
 classes_list = []
@@ -39,13 +40,23 @@ for i in range (len(shapes_dictionary)):
 
 for object in classes_list:
     object.is_parent(relations)
-    object.matching(ocr_dictionary)
+    data_type = object.data_type_matching(ocr_dictionary)
+    object.matching(ocr_dictionary, data_type)
     object.show_info()
 
 
 #draw classes 
 draw.draw_diagram(classes_list,ocr_dictionary,"test_images/output.png")
 
+#write classes
+
+import webbrowser
+
+url = 'https://app.diagrams.net/'
+webbrowser.register('chrome',
+	None,
+	webbrowser.BackgroundBrowser("C://Program Files (x86)//Google//Chrome//Application//chrome.exe"))
+#webbrowser.get('chrome').open(url)
 
 cv2.waitKey(0)
 cv2.destroyAllWindows()

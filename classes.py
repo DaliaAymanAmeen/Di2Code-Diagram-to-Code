@@ -1,4 +1,5 @@
 import collections
+from collections import defaultdict
 
 class Classes:
     def __init__(self):
@@ -47,9 +48,33 @@ class Classes:
             if ( (relation[0] < x_co + 100 and relation[0] > x_co - 100) and (relation[1] < y_co + 150 and relation[1] > y_co - 150) ):
                 self.isParent = True 
 
-    def matching (self, ocr_dictionary):
+
+    # function to separate data type words
+    def data_type_matching (self, ocr_dictionary):
+        data_type = {}
+        data_type_list = ['int', 'string', 'float', 'None', 'str']
         for word, coordinates_list in ocr_dictionary.items():
+            if (word in data_type_list):
+                data_type[word] = (coordinates_list)
+        return data_type
+
+
+    def matching (self, ocr_dictionary, data_type):
+        # first we ignore data type words
+        data_type_list = ['int', 'string', 'float', 'None', 'str']
+        for word, coordinates_list in ocr_dictionary.items():
+            if (word in data_type_list):
+                continue
+            # second we ignore some symbols
+            if (word == ":"):
+                continue
+            # finally we store classes names & attributes & methods 
             for coordinates in coordinates_list:
+                #concatinate betrweed word and datatype
+                for data_type_word, data_type_coordinates_list in data_type.items():
+                    for data_type_coordinates in data_type_coordinates_list:
+                        if (data_type_coordinates[1] <= coordinates[1]+5 and data_type_coordinates[1] >= coordinates[1]-5 and data_type_coordinates[0] <= coordinates[0]+100 and data_type_coordinates[0] >= coordinates[0]-100):
+                            word = data_type_word + " " + word            
                 [x, y] = coordinates
                 if ((x >= self.name_lower_limit[0] and x <= self.name_upper_limit[0]) and (y >= self.name_lower_limit[1] and y <= self.name_upper_limit[1])):
                     self.name = word
@@ -57,5 +82,7 @@ class Classes:
                     self.attributes.append(word)
                 elif ((x >= self.methods_lower_limit[0] and x <= self.methods_upper_limit[0]) and (y >= self.methods_lower_limit[1] and y <= self.methods_upper_limit[1])):
                     self.methods.append(word)
+
+        print (data_type)
 
 
