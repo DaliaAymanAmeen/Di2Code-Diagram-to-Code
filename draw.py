@@ -1,7 +1,8 @@
 import shape_detection 
 import cv2
 import classes 
-
+import csv
+import os
 ##Habal doaa
 # rasm rectangles
 
@@ -33,3 +34,36 @@ def draw_diagram(classes_list,ocr_dictionary,output_image):
     cv2.imshow("out", img)    
 
     cv2.imwrite(output_image,img)
+
+
+def create_csv(class_list,parent):
+    sperator="-----------------------------------"
+    users=[["ClassName","seperator1","Attributes","seperator2","Methods","Parent"]]
+    keys=[["ClassName","seperator1","Attributes","seperator2","Methods","Parent"]]
+
+    for object in class_list:
+
+        class_name=str(object.name)
+        attr=(object.attributes)
+        meth=(object.methods)
+        class_attributes = ' '.join([str(elem) for elem in attr])
+        class_methods= ' '.join([str(elem) for elem in meth])
+        
+        if(object.isParent):
+            user=[class_name,sperator,class_attributes,sperator,class_methods,'']
+        else:
+            user=[class_name,sperator,class_attributes,sperator,class_methods,parent]
+        users.append(user)
+
+    with open("draw_io_important_file.txt") as f:
+        with open("draw_csv.csv", "w") as f1:
+            for line in f:
+                f1.write(line)
+            #f1.write(keys)
+        
+    with open ("draw_csv.csv","a+",newline='') as draw:
+
+        writer=csv.writer(draw)
+        #writer.writerow(keys)
+        writer.writerows(users)
+    os.startfile("draw_csv.csv")
