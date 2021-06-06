@@ -3,8 +3,6 @@ import cv2
 import classes 
 import csv
 import os
-##Habal doaa
-# rasm rectangles
 
 def draw_diagram(classes_list,ocr_dictionary,output_image):
     img = cv2.imread("test_images/white.jpg")
@@ -24,7 +22,7 @@ def draw_diagram(classes_list,ocr_dictionary,output_image):
         img=cv2.rectangle(img,(x3,y3),(x3+w3,y3+h3),font_color ,font_size)
 
 
-    # rasm el kalam
+    
     for word, coordinates_list in ocr_dictionary.items():
                 for coordinates in coordinates_list:
                     x=coordinates[0]

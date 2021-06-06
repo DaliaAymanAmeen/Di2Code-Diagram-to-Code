@@ -1,6 +1,48 @@
 import classes
 import os
 
+def data_type_filter (word):
+    flag_str = False
+    if "str" in word:
+        index = word.find("str")
+        initial_value = '""'
+        return_Value = "string"
+        data_type_length = 3
+        flag_str = True    
+    elif "string" in word:
+        index = word.find("string")
+        initial_value = ""
+        return_Value = "string"
+        data_type_length = 6
+        flag_str = False 
+    elif "int" in word:
+        index = word.find("int")
+        initial_value = 0  
+        return_Value = "int"
+        data_type_length = 3
+        flag_str = False 
+    elif "float" in word:
+        index = word.find("float")
+        initial_value = 0  
+        return_Value = "float"
+        data_type_length = 5  
+        flag_str = False  
+    elif "None" in word:
+        index = word.find("None")
+        initial_value = ""
+        return_Value = "void"
+        data_type_length = 4
+        flag_str = False 
+
+    if (flag_str):
+        data_type = "string"
+    else:
+        data_type = word [index:data_type_length]
+    variable = word [index+data_type_length+1:]
+
+    return index, initial_value, return_Value, data_type_length, data_type, variable
+
+
 def write_python_code(class_list, parent):
     # python code
     class_list.sort(key = lambda x:x.isParent, reverse = True)
@@ -21,53 +63,21 @@ def write_python_code(class_list, parent):
         else:
             f.write("class " + object.name + ":\n")
         f.write("   def __init__(self):\n")
+
         for attribute in object.attributes:
-            if "str" in attribute:
-                index = attribute.find("str")
-                initial_value = '""'
-                data_type_length = 3
-            elif "string" in attribute:
-                index = attribute.find("string")
-                initial_value = ""
-                data_type_length = 6
-            elif "int" in attribute:
-                index = attribute.find("int")
-                initial_value = 0  
-                data_type_length = 3
-            elif "float" in attribute:
-                index = attribute.find("float")
-                initial_value = 0  
-                data_type_length = 5
+            index, initial_value, return_Value, data_type_length, data_type, variable = data_type_filter (attribute)
 
             for i in bad_chars :
-                attribute = attribute.replace(i, '')
+                variable = variable.replace(i, '')
 
-            f.write("       self." + attribute[index+data_type_length+1:] + " = " + str(initial_value) +"\n\n")
+            f.write("       self." + variable + " = " + str(initial_value) +"\n")
+        f.write("\n")
 
         for method in object.methods:
-            if "None" in method:
-                index = method.find("None")
-                return_Value = "void"
-                data_type_length = 4
-            if "str" in method:
-                index = method.find("str")
-                return_Value = "string"
-                data_type_length = 3
-            elif "string" in method:
-                index = method.find("string")
-                return_Value = "string"
-                data_type_length = 6
-            elif "int" in method:
-                index = method.find("int")
-                return_Value = "int"
-                data_type_length = 3
-            elif "float" in method:
-                index = method.find("float")
-                return_Value = "float"
-                data_type_length = 5
+            index, initial_value, return_Value, data_type_length, data_type, variable = data_type_filter (method)       
 
             for i in bad_chars :
-                method = method.replace(i, '')
+                variable = variable.replace(i, '')
 
             if ("(" in method):
                 last_index = method.find("(")
@@ -100,6 +110,35 @@ def write_cpp_code (class_list, parent):
             f.write("class " + object.name + "(" + parent +")" + "\n" + "{" + "\n" + "private: \n\n" + "public:\n" )
         else:
             f.write("class " + object.name + "\n" + "{" + "\n" + "private: \n\n" + "public:\n")
-        
+
+        for attribute in object.attributes:
+            index, initial_value, return_value, data_type_length, data_type, variable = data_type_filter (attribute)
+
+            for i in bad_chars :
+                variable = variable.replace(i, '')
+                data_type = data_type.replace(i, '')
+
+            f.write("   " + data_type + " " + variable + " = " + str(initial_value) +";\n")
+        f.write("\n")
+
+        for method in object.methods:
+            index, initial_value, return_value, data_type_length, data_type, variable = data_type_filter (method)
+
+            for i in bad_chars :
+                variable = variable.replace(i, '')
+                data_type = data_type.replace(i, '')
+            
+            if ("(" in method):
+                last_index = method.find("(")
+                f.write("   " + return_value + " " + method[index + data_type_length:last_index] + "()" +";\n")
+            else:
+                f.write("   " + return_value + " " + method[index + data_type_length] + "()" +";\n")         
+
+        #constructor & destructor
+        f.write("   " + object.name + "();\n")
+        f.write("   ~" + object.name + "();\n")
+        f.write("};\n\n\n")
+    f.close()
+    os.startfile("cpp_code.h")
     
     
