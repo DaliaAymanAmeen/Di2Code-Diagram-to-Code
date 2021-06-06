@@ -47,9 +47,9 @@ def write_python_code(class_list, parent):
     # python code
     class_list.sort(key = lambda x:x.isParent, reverse = True)
     child = False
-    f = open("python_code.py", "w") 
+    f = open("generated code/python_code.py", "w") 
     for object in class_list:
-        f = open("python_code.py", "a")
+        f = open("generated code/python_code.py", "a")
         if (object.name == parent):
             child = False
         else:
@@ -89,16 +89,16 @@ def write_python_code(class_list, parent):
             f.write("       pass" + "\n\n" )
 
     f.close()
-    os.startfile("python_code.py")
+    os.startfile("generated code\python_code.py")
 
 
 
 def write_cpp_code (class_list, parent):
     # h file
-    f = open("cpp_code.h", "w")
+    f = open("generated code/cpp_code.h", "w")
     f.write("#pragma once\n#include <string>\nusing namespace std;\n\n")
     for object in class_list:
-        f = open("cpp_code.h", "a")
+        f = open("generated code/cpp_code.h", "a")
         if (object.name == parent):
             child = False
         else:
@@ -139,14 +139,14 @@ def write_cpp_code (class_list, parent):
         f.write("   ~" + object.name + "();\n")
         f.write("};\n\n\n")
     f.close()
-    os.startfile("cpp_code.h")
+    os.startfile("generated code\cpp_code.h")
 
 
     # cpp file
-    f = open("cpp_code.cpp", "w")
+    f = open("generated code/cpp_code.cpp", "w")
     f.write('#include "cpp_code.h"\n\n')
     for object in class_list:
-        f = open("cpp_code.cpp", "a")
+        f = open("generated code/cpp_code.cpp", "a")
 
         for method in object.methods:
             index, initial_value, return_value, data_type_length, data_type, variable = data_type_filter (method)
@@ -171,7 +171,7 @@ def write_cpp_code (class_list, parent):
             f.write("\n\n")
 
     f.close()
-    os.startfile("cpp_code.cpp")
+    os.startfile("generated code\cpp_code.cpp")
 
         
     
