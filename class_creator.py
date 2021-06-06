@@ -96,7 +96,7 @@ def write_python_code(class_list, parent):
 def write_cpp_code (class_list, parent):
     # h file
     f = open("cpp_code.h", "w")
-    f.write("#pragma once\n")
+    f.write("#pragma once\n#include <string>\nusing namespace std;\n\n")
     for object in class_list:
         f = open("cpp_code.h", "a")
         if (object.name == parent):
@@ -107,9 +107,9 @@ def write_cpp_code (class_list, parent):
         for i in bad_chars :
             object.name = object.name.replace(i, '')
         if child:
-            f.write("class " + object.name + "(" + parent +")" + "\n" + "{" + "\n" + "private: \n\n" + "public:\n" )
+            f.write("class " + object.name + " : public " + parent  + "\n" + "{" + "\n" + "private: \n" + " //write your private attributes here" + "\n" + "public:\n" )
         else:
-            f.write("class " + object.name + "\n" + "{" + "\n" + "private: \n\n" + "public:\n")
+            f.write("class " + object.name + "\n" + "{" + "\n" + "private: \n" + "  //write your private attributes here" + "\n" + "public:\n")
 
         for attribute in object.attributes:
             index, initial_value, return_value, data_type_length, data_type, variable = data_type_filter (attribute)
@@ -140,5 +140,39 @@ def write_cpp_code (class_list, parent):
         f.write("};\n\n\n")
     f.close()
     os.startfile("cpp_code.h")
+
+
+    # cpp file
+    f = open("cpp_code.cpp", "w")
+    f.write('#include "cpp_code.h"\n\n')
+    for object in class_list:
+        f = open("cpp_code.cpp", "a")
+
+        for method in object.methods:
+            index, initial_value, return_value, data_type_length, data_type, variable = data_type_filter (method)
+
+            for i in bad_chars :
+                variable = variable.replace(i, '')
+                data_type = data_type.replace(i, '')
+            
+            if ("(" in method):
+                last_index = method.find("(")
+                f.write(return_value + " " + object.name + "::" + method[index + data_type_length:last_index] + "()" +"\n")
+                f.write("{\n    //write your funtion implementation here\n" + "    return " + str(initial_value) + ";\n" +"}\n")
+            else:
+                f.write(return_value + " " + method[index + data_type_length] + "()" +"\n")
+                f.write("{\n    //write your funtion implementation here\n" + "    return " + str(initial_value) + ";\n" + "}\n")  
+    
+            #constructor & destructor
+            f.write(object.name + "::" + object.name + "()\n")
+            f.write("{\n    //write your constructor implementation here\n}\n")
+            f.write(object.name + "::" + "~" + object.name + "()\n")   
+            f.write("{\n    //write your deconstructor implementation here\n}\n")    
+            f.write("\n\n")
+
+    f.close()
+    os.startfile("cpp_code.cpp")
+
+        
     
     
