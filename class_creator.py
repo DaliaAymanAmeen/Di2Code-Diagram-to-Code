@@ -1,4 +1,5 @@
 import classes
+import os
 
 def write_python_code(class_list, parent):
     # python code
@@ -78,6 +79,7 @@ def write_python_code(class_list, parent):
             f.write("       pass" + "\n\n" )
 
     f.close()
+    os.startfile("python_code.py")
 
 
 

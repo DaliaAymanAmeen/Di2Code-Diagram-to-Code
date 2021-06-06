@@ -1,10 +1,10 @@
 #pragma once
-class Student(Person)
+class Person
 {
 private: 
 
 public:
-class Person
+class Student(Person)
 {
 private: 
 
