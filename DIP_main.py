@@ -2,6 +2,9 @@ import cv2
 import classes 
 import shape_detection 
 import draw
+import class_creator 
+import re
+import webbrowser
 
 #shape dictionary
 print (shape_detection.shape_detection("test_images/new.png"))
@@ -38,19 +41,23 @@ for i in range (len(shapes_dictionary)):
 
     classes_list.append(new_class)
 
+parent_class = ""
+
 for object in classes_list:
     object.is_parent(relations)
     data_type = object.data_type_matching(ocr_dictionary)
     object.matching(ocr_dictionary, data_type)
     object.show_info()
-
+    if (object.isParent):
+        parent_class = object.name
 
 #draw classes 
 draw.draw_diagram(classes_list,ocr_dictionary,"test_images/output.png")
 
 #write classes
+class_creator.write_python_code(classes_list, parent_class)
+class_creator.write_cpp_code(classes_list, parent_class)
 
-import webbrowser
 
 url = 'https://app.diagrams.net/'
 webbrowser.register('chrome',

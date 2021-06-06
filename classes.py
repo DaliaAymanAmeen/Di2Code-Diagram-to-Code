@@ -50,7 +50,7 @@ class Classes:
 
 
     # function to separate data type words
-    def data_type_matching (self, ocr_dictionary):
+    def data_type_matching(self, ocr_dictionary):
         data_type = {}
         data_type_list = ['int', 'string', 'float', 'None', 'str']
         for word, coordinates_list in ocr_dictionary.items():
@@ -83,6 +83,6 @@ class Classes:
                 elif ((x >= self.methods_lower_limit[0] and x <= self.methods_upper_limit[0]) and (y >= self.methods_lower_limit[1] and y <= self.methods_upper_limit[1])):
                     self.methods.append(word)
 
-        print (data_type)
+        #print (data_type)
 
 
