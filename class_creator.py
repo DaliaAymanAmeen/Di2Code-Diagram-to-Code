@@ -85,7 +85,7 @@ def write_python_code(class_list, parent):
             else:
                 f.write("   def" + method[index + data_type_length:] + "(self):" + "\n" )
         
-            f.write("       # please note that the return value is " + return_Value + "\n" )
+            f.write("       # write your funtion implementation here\n       # please note that the return value is " + return_Value + "\n" )
             f.write("       pass" + "\n\n" )
 
     f.close()
@@ -167,7 +167,7 @@ def write_cpp_code (class_list, parent):
             f.write(object.name + "::" + object.name + "()\n")
             f.write("{\n    //write your constructor implementation here\n}\n")
             f.write(object.name + "::" + "~" + object.name + "()\n")   
-            f.write("{\n    //write your deconstructor implementation here\n}\n")    
+            f.write("{\n    //write your destructor implementation here\n}\n")    
             f.write("\n\n")
 
     f.close()

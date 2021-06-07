@@ -51,13 +51,13 @@ for object in classes_list:
     if (object.isParent):
         parent_class = object.name
 
-#draw classes 
+# draw classes 
 draw.draw_diagram(classes_list,ocr_dictionary,"test_images/output.png")
 
 # create csv file to open using draw.io 
 draw.create_csv(classes_list,parent_class)
 
-#write classes
+# write classes
 class_creator.write_python_code(classes_list, parent_class)
 class_creator.write_cpp_code(classes_list, parent_class)
 
@@ -66,7 +66,7 @@ url = 'https://app.diagrams.net/'
 webbrowser.register('chrome',
 	None,
 	webbrowser.BackgroundBrowser("C://Program Files (x86)//Google//Chrome//Application//chrome.exe"))
-#webbrowser.get('chrome').open(url)
+webbrowser.get('chrome').open(url)
 
 cv2.waitKey(0)
 cv2.destroyAllWindows()

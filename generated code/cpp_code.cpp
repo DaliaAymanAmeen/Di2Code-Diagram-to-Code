@@ -11,7 +11,7 @@ Person::Person()
 }
 Person::~Person()
 {
-    //write your deconstructor implementation here
+    //write your destructor implementation here
 }
 
 
@@ -26,7 +26,7 @@ Student::Student()
 }
 Student::~Student()
 {
-    //write your deconstructor implementation here
+    //write your destructor implementation here
 }
 
 
@@ -41,7 +41,7 @@ Professor::Professor()
 }
 Professor::~Professor()
 {
-    //write your deconstructor implementation here
+    //write your destructor implementation here
 }
 
 
