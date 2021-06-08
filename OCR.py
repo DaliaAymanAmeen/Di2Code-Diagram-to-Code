@@ -96,12 +96,12 @@ def handwritten_OCR(image):
     return class_dictionary
 
 
-
-out = defaultdict(list)
-out = handwritten_OCR('1.jpeg')
-print(out)
-out = computer_OCR('testComputer2.jpeg')
-print(out)
+#out = defaultdict(list)
+#out = handwritten_OCR('1.jpeg')
+#print(out)
+#out = computer_OCR('testComputer2.jpeg')
+#out = computer_OCR('test_images/new.png')
+#print(out)
 
 
 
