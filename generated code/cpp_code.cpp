@@ -1,3 +1,4 @@
+                /////*This generated code is done by Di2Code team*/////
 #include "cpp_code.h"
 
 int Person:: get_age()

@@ -2,35 +2,57 @@ import classes
 import os
 
 def data_type_filter (word):
+    """Function to separate the data type from the variable name and separate function name from return type
+
+    Parameters
+    ----------
+    word : str
+        Fhe whole line which could be the attribute part (variable name : data type) or method part (function name + return type)
+
+    Returns
+    -------
+    index 
+        int number indicates the first index of the data type or the return type
+    initial_value
+        Initial value retalted to the data type 
+    return_type
+        string that defines the return type        
+    data_type_length
+        int number indicates the length of the data type or the return type
+    data_type
+        string that defines the data type or the return type
+    variable
+        string the defines the variable name or the function name
+    """
     flag_str = False
     if "str" in word:
         index = word.find("str")
         initial_value = '""'
-        return_Value = "string"
+        return_type = "string"
         data_type_length = 3
         flag_str = True    
     elif "string" in word:
         index = word.find("string")
         initial_value = ""
-        return_Value = "string"
+        return_type = "string"
         data_type_length = 6
         flag_str = False 
     elif "int" in word:
         index = word.find("int")
         initial_value = 0  
-        return_Value = "int"
+        return_type = "int"
         data_type_length = 3
         flag_str = False 
     elif "float" in word:
         index = word.find("float")
         initial_value = 0  
-        return_Value = "float"
+        return_type = "float"
         data_type_length = 5  
         flag_str = False  
     elif "None" in word:
         index = word.find("None")
         initial_value = ""
-        return_Value = "void"
+        return_type = "void"
         data_type_length = 4
         flag_str = False 
 
@@ -40,14 +62,24 @@ def data_type_filter (word):
         data_type = word [index:data_type_length]
     variable = word [index+data_type_length+1:]
 
-    return index, initial_value, return_Value, data_type_length, data_type, variable
+    return index, initial_value, return_type, data_type_length, data_type, variable
 
 
 def write_python_code(class_list, parent):
-    # python code
+    """Function to write the generated python code
+
+    Parameters
+    ----------
+    class_list : list
+        List of objects each object is the detected class
+    parent : str
+        The parent class
+    """
+
     class_list.sort(key = lambda x:x.isParent, reverse = True)
     child = False
-    f = open("generated code/python_code.py", "w") 
+    f = open("generated code/python_code.py", "w")
+    f.write("                #####This generated code is done by Di2Code team#####\n")
     for object in class_list:
         f = open("generated code/python_code.py", "a")
         if (object.name == parent):
@@ -65,7 +97,7 @@ def write_python_code(class_list, parent):
         f.write("   def __init__(self):\n")
 
         for attribute in object.attributes:
-            index, initial_value, return_Value, data_type_length, data_type, variable = data_type_filter (attribute)
+            index, initial_value, return_type, data_type_length, data_type, variable = data_type_filter (attribute)
 
             for i in bad_chars :
                 variable = variable.replace(i, '')
@@ -74,7 +106,7 @@ def write_python_code(class_list, parent):
         f.write("\n")
 
         for method in object.methods:
-            index, initial_value, return_Value, data_type_length, data_type, variable = data_type_filter (method)       
+            index, initial_value, return_type, data_type_length, data_type, variable = data_type_filter (method)       
 
             for i in bad_chars :
                 variable = variable.replace(i, '')
@@ -85,7 +117,7 @@ def write_python_code(class_list, parent):
             else:
                 f.write("   def" + method[index + data_type_length:] + "(self):" + "\n" )
         
-            f.write("       # write your funtion implementation here\n       # please note that the return value is " + return_Value + "\n" )
+            f.write("       # write your funtion implementation here\n       # please note that the return value is " + return_type + "\n" )
             f.write("       pass" + "\n\n" )
 
     f.close()
@@ -94,8 +126,19 @@ def write_python_code(class_list, parent):
 
 
 def write_cpp_code (class_list, parent):
+    """Function to write the generated cpp code (both the header and the cpp files)
+
+    Parameters
+    ----------
+    class_list : list
+        List of objects each object is the detected class
+    parent : str
+        The parent class
+    """
+
     # h file
     f = open("generated code/cpp_code.h", "w")
+    f.write("                /////*This generated code is done by Di2Code team*/////\n")
     f.write("#pragma once\n#include <string>\nusing namespace std;\n\n")
     for object in class_list:
         f = open("generated code/cpp_code.h", "a")
@@ -112,7 +155,7 @@ def write_cpp_code (class_list, parent):
             f.write("class " + object.name + "\n" + "{" + "\n" + "private: \n" + "  //write your private attributes here" + "\n" + "public:\n")
 
         for attribute in object.attributes:
-            index, initial_value, return_value, data_type_length, data_type, variable = data_type_filter (attribute)
+            index, initial_value, return_type, data_type_length, data_type, variable = data_type_filter (attribute)
 
             for i in bad_chars :
                 variable = variable.replace(i, '')
@@ -122,7 +165,7 @@ def write_cpp_code (class_list, parent):
         f.write("\n")
 
         for method in object.methods:
-            index, initial_value, return_value, data_type_length, data_type, variable = data_type_filter (method)
+            index, initial_value, return_type, data_type_length, data_type, variable = data_type_filter (method)
 
             for i in bad_chars :
                 variable = variable.replace(i, '')
@@ -130,9 +173,9 @@ def write_cpp_code (class_list, parent):
             
             if ("(" in method):
                 last_index = method.find("(")
-                f.write("   " + return_value + " " + method[index + data_type_length:last_index] + "()" +";\n")
+                f.write("   " + return_type + " " + method[index + data_type_length:last_index] + "()" +";\n")
             else:
-                f.write("   " + return_value + " " + method[index + data_type_length] + "()" +";\n")         
+                f.write("   " + return_type + " " + method[index + data_type_length] + "()" +";\n")         
 
         #constructor & destructor
         f.write("   " + object.name + "();\n")
@@ -144,12 +187,13 @@ def write_cpp_code (class_list, parent):
 
     # cpp file
     f = open("generated code/cpp_code.cpp", "w")
+    f.write("                /////*This generated code is done by Di2Code team*/////\n")
     f.write('#include "cpp_code.h"\n\n')
     for object in class_list:
         f = open("generated code/cpp_code.cpp", "a")
 
         for method in object.methods:
-            index, initial_value, return_value, data_type_length, data_type, variable = data_type_filter (method)
+            index, initial_value, return_type, data_type_length, data_type, variable = data_type_filter (method)
 
             for i in bad_chars :
                 variable = variable.replace(i, '')
@@ -157,10 +201,10 @@ def write_cpp_code (class_list, parent):
             
             if ("(" in method):
                 last_index = method.find("(")
-                f.write(return_value + " " + object.name + "::" + method[index + data_type_length:last_index] + "()" +"\n")
+                f.write(return_type + " " + object.name + "::" + method[index + data_type_length:last_index] + "()" +"\n")
                 f.write("{\n    //write your funtion implementation here\n" + "    return " + str(initial_value) + ";\n" +"}\n")
             else:
-                f.write(return_value + " " + method[index + data_type_length] + "()" +"\n")
+                f.write(return_type + " " + method[index + data_type_length] + "()" +"\n")
                 f.write("{\n    //write your funtion implementation here\n" + "    return " + str(initial_value) + ";\n" + "}\n")  
     
             #constructor & destructor
