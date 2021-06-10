@@ -54,15 +54,16 @@ def handwritten_OCR(image):
     # read image, pre-processing
     img = cv2.imread(image)
     Img_h, Img_w, _ = img.shape
-    #print(Img_h, Img_w)
-    if ((Img_h >= 1000) or (Img_w >= 1000)):
-        img = cv2.resize(img, None, fx=0.575, fy=0.585, interpolation=cv2.INTER_CUBIC)
+    print(Img_h, Img_w)
+    if ((Img_h >= 1000) or (Img_w >= 800)):
+        img = cv2.resize(img, None, fx=0.84, fy=0.95, interpolation=cv2.INTER_NEAREST)
+        #img = cv2.resize(img, None, fx=0.8, fy=1.1, interpolation=cv2.INTER_CUBIC)
     if (((Img_h < 1000) & (Img_h >= 550)) or ((Img_w < 1000) & (Img_w >= 550))):
         img = cv2.resize(img, None, fx=0.8, fy=0.8, interpolation=cv2.INTER_CUBIC)
     if ((Img_h < 550) & (Img_w < 550)):
         img = cv2.resize(img, None, fx=1.2, fy=1.2, interpolation=cv2.INTER_CUBIC)
-    kernel1 = np.array([[-1, -1, -1], [-1, 9, -1], [-1, -1, -1]])
-    img = cv2.filter2D(img, -1, kernel1)
+    #kernel1 = np.array([[-1, -1, -1], [-1, 9, -1], [-1, -1, -1]])
+    #img = cv2.filter2D(img, -1, kernel1)
     img = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
     kernel2 = np.ones((1, 1), np.uint8)
     img = cv2.erode(img, kernel2, iterations=1)
@@ -91,17 +92,17 @@ def handwritten_OCR(image):
 
 
     # to show image
-    #cv2.imshow('Result image', img)
-    #cv2.waitKey(0)
+    cv2.imshow('Result image', img)
+    cv2.waitKey(0)
     return class_dictionary
 
 
-#out = defaultdict(list)
-#out = handwritten_OCR('1.jpeg')
-#print(out)
-#out = computer_OCR('testComputer2.jpeg')
-#out = computer_OCR('test_images/new.png')
-#print(out)
+
+out = defaultdict(list)
+out = handwritten_OCR('22.jpeg')
+print(out)
+out = computer_OCR('testComputer2.jpeg')
+print(out)
 
 
 
