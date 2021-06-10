@@ -3,6 +3,22 @@ import cv2
 from collections import defaultdict
 
 def shape_detection (image):
+    """Function to separate the data type from the variable name and separate function name from return type
+
+    Parameters
+    ----------
+    image : str
+            The image path  
+
+    Returns
+    -------
+    class_dictionary 
+        dict #############
+    
+    relations 
+        list #############
+    """
+
     img = cv2.imread(image)
     img_h , img_w, _ = img.shape
 
