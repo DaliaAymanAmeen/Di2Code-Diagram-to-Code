@@ -25,65 +25,55 @@ def data_type_filter (word):
     variable
         string the defines the variable name or the function name
     """
-    flag_str = False
     if "str" in word:
         index = word.find("str")
         initial_value = '""'
         return_type = "string"
         data_type = "string"
-        data_type_length = 3
-        flag_str = True    
+        data_type_length = 3  
     elif "string" in word:
         index = word.find("string")
         initial_value = ""
         return_type = "string"
         data_type = "string"
         data_type_length = 6
-        flag_str = False 
     elif "int" in word:
         index = word.find("int")
         initial_value = 0  
         return_type = "int"
         data_type = "int"
         data_type_length = 3
-        flag_str = False 
     elif "ink" in word:
         index = word.find("ink")
         initial_value = 0  
         data_type = "int"
         return_type = "int"
         data_type_length = 3
-        flag_str = False 
     elif "float" in word:
         index = word.find("float")
         initial_value = 0  
         return_type = "float"
         data_type = "float"
         data_type_length = 5  
-        flag_str = False  
     elif "None" in word:
         index = word.find("None")
         initial_value = ""
         return_type = "void"
         data_type = "void"
         data_type_length = 4
-        flag_str = False 
     elif "):Nene" in word:
         index = word.find("):Nene")
         initial_value = ""
         return_type = "void"
         data_type = "void"
         data_type_length = 6
-        flag_str = False 
     elif "-None" in word:
         index = word.find("-None")
         initial_value = ""
         return_type = "void"
         data_type = "void"
         data_type_length = 5
-        flag_str = False 
-
-
+    
     variable = word [index+data_type_length+1:]
 
     return index, initial_value, return_type, data_type_length, data_type, variable
@@ -110,7 +100,7 @@ def write_python_code(class_list, parent):
             child = False
         else:
             child = True
-        bad_chars= [';','!',"*", "?", "'", ",", "‘", ":"]
+        bad_chars= [';','!',"*", "?", "'", ",", "‘", ":", "."]
         for i in bad_chars :
             object.name = object.name.replace(i, '')
         
@@ -130,7 +120,6 @@ def write_python_code(class_list, parent):
         f.write("\n")
 
         for method in object.methods:
-            print(method)
             index, initial_value, return_type, data_type_length, data_type, variable = data_type_filter (method)       
 
             for i in bad_chars :
@@ -171,7 +160,7 @@ def write_cpp_code (class_list, parent):
             child = False
         else:
             child = True
-        bad_chars= [';','!',"*", "?", "'", ",", "‘", ":"]
+        bad_chars= [';','!',"*", "?", "'", ",", "‘", ":", "."]
         for i in bad_chars :
             object.name = object.name.replace(i, '')
         if child:
@@ -191,7 +180,7 @@ def write_cpp_code (class_list, parent):
 
         for method in object.methods:
             index, initial_value, return_type, data_type_length, data_type, variable = data_type_filter (method)
-            print (data_type_filter (method))
+            print (variable)
 
             for i in bad_chars :
                 variable = variable.replace(i, '')
@@ -217,7 +206,7 @@ def write_cpp_code (class_list, parent):
     f.write('#include "cpp_code.h"\n\n')
     for object in class_list:
         f = open("generated code/cpp_code.cpp", "a")
-
+        bad_chars= [';','!',"*", "?", "'", ",", "‘", ":", "."]
         for method in object.methods:
             index, initial_value, return_type, data_type_length, data_type, variable = data_type_filter (method)
 

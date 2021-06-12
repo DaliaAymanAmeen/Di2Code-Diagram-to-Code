@@ -13,5 +13,6 @@
 # link: url
 ## CSV starts under this line
 ClassName,seperator1,Attributes,seperator2,Methods,Parent
-Person,-----------------------------------,str Name,-----------------------------------,-None S2ETD,
-student,-----------------------------------,ink Class,-----------------------------------,):Nene enroll.,Person
+Person,-----------------------------------,int ‘age:,-----------------------------------,int get_age(),
+Student,-----------------------------------,str id,-----------------------------------,float get_gpa(),Person
+Professor,-----------------------------------,str title,-----------------------------------,None teach(),Person
