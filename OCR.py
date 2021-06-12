@@ -98,11 +98,11 @@ def handwritten_OCR(image):
 
 
 
-out = defaultdict(list)
-out = handwritten_OCR('22.jpeg')
-print(out)
-out = computer_OCR('testComputer2.jpeg')
-print(out)
+#out = defaultdict(list)
+#out = handwritten_OCR('22.jpeg')
+#print(out)
+#out = computer_OCR('testComputer2.jpeg')
+#print(out)
 
 
 

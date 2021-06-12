@@ -2,7 +2,7 @@ import numpy as np
 import cv2
 from collections import defaultdict
 
-def shape_detection (image):
+def shape_detection (image, image_type):
     """Function to separate the data type from the variable name and separate function name from return type
 
     Parameters
@@ -22,12 +22,22 @@ def shape_detection (image):
     img = cv2.imread(image)
     img_h , img_w, _ = img.shape
 
-    if ((img_h >= 1000)  or (img_w >= 1000)):
-        img = cv2.resize(img, None, fx=0.5, fy=0.5)
-    if (((img_h < 1000) & (img_h>=550))  or ((img_w < 1000) & (img_w>=550))):
-        img = cv2.resize(img, None, fx=1.1, fy=1.1, interpolation=cv2.INTER_CUBIC)
-    if ((img_h < 550)  & (img_w < 550)):
-        img = cv2.resize(img, None, fx=1.2, fy=1.2, interpolation=cv2.INTER_CUBIC)
+    if (image_type == "computer"):
+        if ((img_h >= 1000)  or (img_w >= 1000)):
+            img = cv2.resize(img, None, fx=0.5, fy=0.5)
+        if (((img_h < 1000) & (img_h>=550))  or ((img_w < 1000) & (img_w>=550))):
+            img = cv2.resize(img, None, fx=1.1, fy=1.1, interpolation=cv2.INTER_CUBIC)
+        if ((img_h < 550)  & (img_w < 550)):
+            img = cv2.resize(img, None, fx=1.2, fy=1.2, interpolation=cv2.INTER_CUBIC)
+
+    elif (image_type == "hand written"):
+        if ((img_h >= 1000) or (img_w >= 800)):
+            img = cv2.resize(img, None, fx=0.84, fy=0.95, interpolation=cv2.INTER_NEAREST)
+            #img = cv2.resize(img, None, fx=0.8, fy=1.1, interpolation=cv2.INTER_CUBIC)
+        if (((img_h < 1000) & (img_h >= 550)) or ((img_w < 1000) & (img_w >= 550))):
+            img = cv2.resize(img, None, fx=0.8, fy=0.8, interpolation=cv2.INTER_CUBIC)
+        if ((img_h < 550) & (img_w < 550)):
+            img = cv2.resize(img, None, fx=1.2, fy=1.2, interpolation=cv2.INTER_CUBIC)
 
     #img = cv2.resize(img, None, fx=0.5, fy=0.5, interpolation=cv2.INTER_CUBIC)
     imgGrey = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
@@ -49,18 +59,27 @@ def shape_detection (image):
         if len(approx) == 3:
             x = approx.ravel()[0]
             y = approx.ravel()[1] 
-            if (cv2.contourArea(contour) > 30):
-                cv2.drawContours(img, [approx], 0, (0, 0, 255), 2)
-                relations.append([x, y])
-                #cv2.putText(img, "T", (x, y), cv2.FONT_HERSHEY_COMPLEX, 0.5, (0, 0, 0))
+            if (image_type == "hand written"):
+                if (cv2.contourArea(contour) > 120 and cv2.contourArea(contour) < 200):
+                    cv2.drawContours(img, [approx], 0, (0, 0, 255), 2)
+                    relations.append([x, y])
+            elif (image_type == "computer"):
+                if (cv2.contourArea(contour) > 30):
+                    cv2.drawContours(img, [approx], 0, (0, 0, 255), 2)
+                    relations.append([x, y])
 
         if len(approx) == 4:
             x, y, w, h = cv2.boundingRect(approx)
             if ((w*h) > 1500):
                 cv2.drawContours(img, [approx], 0, (0, 255, 0), 2)
                 coordinates.append([x, y, w, h])
+    
+    if (image_type == "computer"):
+        coordinates = sorted(coordinates, key=lambda x: x[0])
+        coordinates.sort()
 
-    coordinates.sort()
+    elif(image_type == "hand written"):
+        coordinates = sorted(coordinates, key=lambda x: x[1])
 
     i = -1
     x_prev = 0

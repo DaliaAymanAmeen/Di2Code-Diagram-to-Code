@@ -1,3 +1,4 @@
+from cv2 import data
 import classes
 import os
 
@@ -29,17 +30,27 @@ def data_type_filter (word):
         index = word.find("str")
         initial_value = '""'
         return_type = "string"
+        data_type = "string"
         data_type_length = 3
         flag_str = True    
     elif "string" in word:
         index = word.find("string")
         initial_value = ""
         return_type = "string"
+        data_type = "string"
         data_type_length = 6
         flag_str = False 
     elif "int" in word:
         index = word.find("int")
         initial_value = 0  
+        return_type = "int"
+        data_type = "int"
+        data_type_length = 3
+        flag_str = False 
+    elif "ink" in word:
+        index = word.find("ink")
+        initial_value = 0  
+        data_type = "int"
         return_type = "int"
         data_type_length = 3
         flag_str = False 
@@ -47,19 +58,32 @@ def data_type_filter (word):
         index = word.find("float")
         initial_value = 0  
         return_type = "float"
+        data_type = "float"
         data_type_length = 5  
         flag_str = False  
     elif "None" in word:
         index = word.find("None")
         initial_value = ""
         return_type = "void"
+        data_type = "void"
         data_type_length = 4
         flag_str = False 
+    elif "):Nene" in word:
+        index = word.find("):Nene")
+        initial_value = ""
+        return_type = "void"
+        data_type = "void"
+        data_type_length = 6
+        flag_str = False 
+    elif "-None" in word:
+        index = word.find("-None")
+        initial_value = ""
+        return_type = "void"
+        data_type = "void"
+        data_type_length = 5
+        flag_str = False 
 
-    if (flag_str):
-        data_type = "string"
-    else:
-        data_type = word [index:data_type_length]
+
     variable = word [index+data_type_length+1:]
 
     return index, initial_value, return_type, data_type_length, data_type, variable
@@ -106,6 +130,7 @@ def write_python_code(class_list, parent):
         f.write("\n")
 
         for method in object.methods:
+            print(method)
             index, initial_value, return_type, data_type_length, data_type, variable = data_type_filter (method)       
 
             for i in bad_chars :
@@ -156,7 +181,7 @@ def write_cpp_code (class_list, parent):
 
         for attribute in object.attributes:
             index, initial_value, return_type, data_type_length, data_type, variable = data_type_filter (attribute)
-
+            
             for i in bad_chars :
                 variable = variable.replace(i, '')
                 data_type = data_type.replace(i, '')
@@ -166,6 +191,7 @@ def write_cpp_code (class_list, parent):
 
         for method in object.methods:
             index, initial_value, return_type, data_type_length, data_type, variable = data_type_filter (method)
+            print (data_type_filter (method))
 
             for i in bad_chars :
                 variable = variable.replace(i, '')
@@ -175,7 +201,7 @@ def write_cpp_code (class_list, parent):
                 last_index = method.find("(")
                 f.write("   " + return_type + " " + method[index + data_type_length:last_index] + "()" +";\n")
             else:
-                f.write("   " + return_type + " " + method[index + data_type_length] + "()" +";\n")         
+                f.write("   " + return_type + " " + method[index + data_type_length:] + "()" +";\n")         
 
         #constructor & destructor
         f.write("   " + object.name + "();\n")
@@ -204,7 +230,7 @@ def write_cpp_code (class_list, parent):
                 f.write(return_type + " " + object.name + "::" + method[index + data_type_length:last_index] + "()" +"\n")
                 f.write("{\n    //write your funtion implementation here\n" + "    return " + str(initial_value) + ";\n" +"}\n")
             else:
-                f.write(return_type + " " + method[index + data_type_length] + "()" +"\n")
+                f.write(return_type + " " + method[index + data_type_length:] + "()" +"\n")
                 f.write("{\n    //write your funtion implementation here\n" + "    return " + str(initial_value) + ";\n" + "}\n")  
     
             #constructor & destructor

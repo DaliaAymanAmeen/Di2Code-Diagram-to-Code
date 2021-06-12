@@ -7,14 +7,28 @@ import OCR
 import re
 import webbrowser
 
-image = "test_images/new.png"
+image_type = "hand written"
+#image_type = "computer"
+
+if (image_type == "computer"):
+    image = "test_images/new.png"
+elif (image_type == "hand written"):
+    image = "test_images/hand_written_final.jpeg" 
+    image_ocr = "test_images/hand_written_final_ocr.jpeg" 
 
 #shape dictionary
-shapes_dictionary, relations = shape_detection.shape_detection(image)
+#shapes_dictionary, relations = shape_detection.shape_detection(image)
+shapes_dictionary, relations = shape_detection.shape_detection(image, image_type)
+print (shapes_dictionary)
+print (relations)
 
 #ocr dictionary 
 #ocr_dictionary = {'Person': [[189, 14]], '‘age:': [[152, 46]], 'int': [[201, 42], [250, 74]], 'get_age()': [[152, 73]], ':': [[236, 79], [37, 327], [333, 327], [99, 355], [361, 355]], 'Student': [[45, 294]], 'Professor': [[315, 294]], 'id': [[14, 321]], 'str': [[50, 323], [346, 324]], 'title': [[292, 321]], 'get_gpa()': [[13, 349]], 'float': [[113, 350]], 'teach()': [[291, 349]], 'None': [[372, 350]]}
-ocr_dictionary = OCR.computer_OCR(image)
+if (image_type == "computer"):
+    ocr_dictionary = OCR.computer_OCR(image)
+elif (image_type == "hand written"):
+    ocr_dictionary = OCR.handwritten_OCR(image_ocr)
+print (ocr_dictionary)
 
 # to create instance for each class 
 classes_list = []
@@ -48,7 +62,10 @@ parent_class = ""
 for object in classes_list:
     object.is_parent(relations)
     data_type = object.data_type_matching(ocr_dictionary)
-    object.matching(ocr_dictionary, data_type)
+    if (image_type == "computer"):
+        object.matching(ocr_dictionary, data_type)
+    elif (image_type == "hand written"): 
+        object.matching_hand_written(ocr_dictionary, data_type)
     object.show_info()
     if (object.isParent):
         parent_class = object.name

@@ -45,14 +45,14 @@ class Classes:
             [x, y, w, h] = self.methods_coordinates
             x_co = x + (w/2)
             y_co = y + h
-            if ( (relation[0] < x_co + 100 and relation[0] > x_co - 100) and (relation[1] < y_co + 150 and relation[1] > y_co - 150) ):
+            if ( (relation[0] < x_co + 50 and relation[0] > x_co - 50) and (relation[1] < y_co + 75 and relation[1] > y_co - 75) ):
                 self.isParent = True 
 
 
     # function to separate data type words
     def data_type_matching(self, ocr_dictionary):
         data_type = {}
-        data_type_list = ['int', 'string', 'float', 'None', 'str']
+        data_type_list = ['int', 'string', 'float', 'None', 'str', "-None", "):Nene", "ink"]
         for word, coordinates_list in ocr_dictionary.items():
             if (word in data_type_list):
                 data_type[word] = (coordinates_list)
@@ -70,7 +70,7 @@ class Classes:
                 continue
             # finally we store classes names & attributes & methods 
             for coordinates in coordinates_list:
-                #concatinate betrweed word and datatype
+                #concatinate betrwee word and datatype
                 for data_type_word, data_type_coordinates_list in data_type.items():
                     for data_type_coordinates in data_type_coordinates_list:
                         if (data_type_coordinates[1] <= coordinates[1]+5 and data_type_coordinates[1] >= coordinates[1]-5 and data_type_coordinates[0] <= coordinates[0]+100 and data_type_coordinates[0] >= coordinates[0]-100):
@@ -84,5 +84,29 @@ class Classes:
                     self.methods.append(word)
 
         #print (data_type)
+
+    def matching_hand_written (self, ocr_dictionary, data_type):
+    # first we ignore data type words
+        data_type_list = ['int', 'string', 'float', 'None', 'str', "-None", "):Nene", "ink"]
+        for word, coordinates_list in ocr_dictionary.items():
+            if (word in data_type_list):
+                continue
+            # second we ignore some symbols
+            if (word == ":" or word == "«" or word == "|" or word == "="):
+                continue
+            # finally we store classes names & attributes & methods 
+            for coordinates in coordinates_list:
+                #concatinate betrwee word and datatype
+                for data_type_word, data_type_coordinates_list in data_type.items():
+                    for data_type_coordinates in data_type_coordinates_list:
+                        if (data_type_coordinates[1] <= coordinates[1]+7 and data_type_coordinates[1] >= coordinates[1]-7 and data_type_coordinates[0] <= coordinates[0]+200 and data_type_coordinates[0] >= coordinates[0]-200):
+                            word = data_type_word + " " + word            
+                [x, y] = coordinates
+                if ((x >= self.name_lower_limit[0] and x <= self.name_upper_limit[0]) and (y >= self.name_lower_limit[1] and y <= self.name_upper_limit[1])):
+                    self.name = word
+                elif ((x >= self.attributes_lower_limit[0] and x <= self.attributes_upper_limit[0]) and (y >= self.attributes_lower_limit[1] and y <= self.attributes_upper_limit[1]-10)):
+                    self.attributes.append(word)
+                elif ((x >= self.methods_lower_limit[0] and x <= self.methods_upper_limit[0]) and (y >= self.methods_lower_limit[1]-10 and y <= self.methods_upper_limit[1])):
+                    self.methods.append(word)
 
 
