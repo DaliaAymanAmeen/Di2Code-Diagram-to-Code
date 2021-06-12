@@ -1,7 +1,8 @@
 {
   "ExpandedNodes": [
-    ""
+    "",
+    "\\drawings_output"
   ],
-  "SelectedNode": "\\python_code.py",
+  "SelectedNode": "\\DIP_main.py",
   "PreviewInSolutionExplorer": false
 }
