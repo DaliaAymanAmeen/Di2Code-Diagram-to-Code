@@ -124,12 +124,13 @@ def write_python_code(class_list, parent):
 
             for i in bad_chars :
                 variable = variable.replace(i, '')
+                method = method.replace(i, '')
 
             if ("(" in method):
                 last_index = method.find("(")
-                f.write("   def" + method[index + data_type_length:last_index] + "(self):" + "\n" )
+                f.write("   def " + method[index + data_type_length:last_index] + "(self):" + "\n" )
             else:
-                f.write("   def" + method[index + data_type_length:] + "(self):" + "\n" )
+                f.write("   def " + method[index + data_type_length:] + "(self):" + "\n" )
         
             f.write("       # write your funtion implementation here\n       # please note that the return value is " + return_type + "\n" )
             f.write("       pass" + "\n\n" )
@@ -185,6 +186,8 @@ def write_cpp_code (class_list, parent):
             for i in bad_chars :
                 variable = variable.replace(i, '')
                 data_type = data_type.replace(i, '')
+                method = method.replace(i, '')
+            print (variable)
             
             if ("(" in method):
                 last_index = method.find("(")
@@ -213,6 +216,7 @@ def write_cpp_code (class_list, parent):
             for i in bad_chars :
                 variable = variable.replace(i, '')
                 data_type = data_type.replace(i, '')
+                method = method.replace(i, '')
             
             if ("(" in method):
                 last_index = method.find("(")

@@ -7,8 +7,8 @@ import OCR
 import re
 import webbrowser
 
-#image_type = "hand written"
-image_type = "computer"
+image_type = "hand written"
+#image_type = "computer"
 
 if (image_type == "computer"):
     image = "test_images/new.png"
