@@ -2,7 +2,7 @@ import collections
 from collections import defaultdict
 
 class Classes:
-    def __init__(self):
+    def __init__(self): 
         self.isParent = False
 
         self.name_coordinates = []
@@ -83,8 +83,7 @@ class Classes:
                 elif ((x >= self.methods_lower_limit[0] and x <= self.methods_upper_limit[0]) and (y >= self.methods_lower_limit[1] and y <= self.methods_upper_limit[1])):
                     self.methods.append(word)
 
-        #print (data_type)
-
+      
     def matching_hand_written (self, ocr_dictionary, data_type):
     # first we ignore data type words
         data_type_list = ['int', 'string', 'float', 'None', 'str', "-None", "):Nene", "ink"]

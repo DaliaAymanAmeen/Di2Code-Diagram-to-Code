@@ -7,6 +7,19 @@ import numpy as np
 pytesseract.pytesseract.tesseract_cmd = 'C:\\Program Files\\Tesseract-OCR\\tesseract.exe'
 
 def computer_OCR(image):
+    """OCR function to detect and extract words from a computerized image
+
+    Parameters
+    ----------
+    image : str
+            The image path  
+
+    Returns
+    -------
+    class_dictionary 
+        dict {str: list} the detected word and its associated coordinates
+    
+    """
     # read image, pre-processing
     img = cv2.imread(image)
     Img_h, Img_w, _ = img.shape
@@ -50,7 +63,21 @@ def computer_OCR(image):
     #cv2.waitKey(0)
     return class_dictionary
 
+
 def handwritten_OCR(image):
+    """OCR function to detect and extract words from a handwritten image
+
+    Parameters
+    ----------
+    image : str
+            The image path  
+
+    Returns
+    -------
+    class_dictionary 
+        dict {str: list} the detected word and its associated coordinates
+    
+    """
     # read image, pre-processing
     img = cv2.imread(image)
     Img_h, Img_w, _ = img.shape
@@ -96,13 +123,6 @@ def handwritten_OCR(image):
     cv2.waitKey(0)
     return class_dictionary
 
-
-
-#out = defaultdict(list)
-#out = handwritten_OCR('22.jpeg')
-#print(out)
-#out = computer_OCR('testComputer2.jpeg')
-#print(out)
 
 
 
