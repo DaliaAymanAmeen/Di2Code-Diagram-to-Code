@@ -8,24 +8,37 @@ class Person
 private: 
   //write your private attributes here
 public:
-   string Name = "";
+   int age = 0;
 
-   void  S2ETD();
+   int  get_age();
    Person();
    ~Person();
 };
 
 
-class student : public Person
+class Student : public Person
 {
 private: 
  //write your private attributes here
 public:
-   int Class = 0;
+   string id = "";
 
-   void enroll();
-   student();
-   ~student();
+   float  get_gpa();
+   Student();
+   ~Student();
+};
+
+
+class Professor : public Person
+{
+private: 
+ //write your private attributes here
+public:
+   string title = "";
+
+   void  teach();
+   Professor();
+   ~Professor();
 };
 
 

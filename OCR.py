@@ -81,7 +81,7 @@ def handwritten_OCR(image):
     # read image, pre-processing
     img = cv2.imread(image)
     Img_h, Img_w, _ = img.shape
-    print(Img_h, Img_w)
+    #print(Img_h, Img_w)
     if ((Img_h >= 1000) or (Img_w >= 800)):
         img = cv2.resize(img, None, fx=0.84, fy=0.95, interpolation=cv2.INTER_NEAREST)
         #img = cv2.resize(img, None, fx=0.8, fy=1.1, interpolation=cv2.INTER_CUBIC)

@@ -2,7 +2,76 @@ import collections
 from collections import defaultdict
 
 class Classes:
+    """
+    A class used to represent each class detected in the UML
+
+    ...
+
+    Attributes
+    ----------
+
+    self.isParent : bool
+
+    self.name_coordinates : list
+        The coordinates of the detected class name rectangles (x, y, w, h) 
+
+    self.name_lower_limit : list
+        The upper left point of the detected class name rectangles (x, y)
+
+    self.name_upper_limit : list
+        The lower right point of the detected class name rectangles (x+w, y+h)
+
+    self.name : str
+        The class name detected using OCR
+
+    self.attributes_coordinates : list
+        The coordinates of the detected attributes rectangles (x, y, w, h) 
+
+    self.attributes_lower_limit : list
+        The upper left point of the detected attributes rectangles (x, y)
+
+    self.attributes_upper_limit : list
+        The lower right point of the detected attributes rectangles (x+w, y+h)
+
+    self.attributes : list
+        The attributes detected using OCR after concatenating each attribute name
+        with its data type using (matching function)
+
+    self.methods_coordinates : list
+        The coordinates of the detected methods rectangles (x, y, w, h) 
+
+    self.methods_lower_limit : list
+        The upper left point of the detected methods rectangles (x, y)
+
+    self.methods_upper_limit : list
+        The lower right point of the detected methods rectangles (x+w, y+h)
+
+    self.methods : list
+        The methods detected using OCR after concatenating each method name
+        with its data type using (matching function)
+
+
+    Methods
+    -------
+    show_info()
+        Function to print the object (class) attributes 
+    
+    is_parent(relations)
+        Function to detect whether this object (class) is a parent class or not
+
+    data_type_matching(self, ocr_dictionary)
+        Function to separate the data type from the variable name or the function name 
+    
+    matching (ocr_dictionary, data_type)
+        Function to match each detected word that detected from OCR, and the data type with its corresponding place in the class
+            (class name or attributes or methods
+
+    matching_hand_written (ocr_dictionary, data_type)
+        Function to match each detected word that detected from OCR, and the data type with its corresponding place in the class
+            (class name or attributes or methods)
+    """
     def __init__(self): 
+        
         self.isParent = False
 
         self.name_coordinates = []
@@ -21,7 +90,10 @@ class Classes:
         self.methods = []
     
     def show_info(self):
-        print("#############################################is parent:" + str(self.isParent) + "\n") 
+        """Function to print the object (class) attributes 
+
+        """
+        print("is parent:" + str(self.isParent) + "\n") 
 
         print("class name coordinate:" + str(self.name_coordinates) + "\n")
         print("class name lower limit:" + str(self.name_lower_limit) + "\n")
@@ -41,6 +113,13 @@ class Classes:
 
 
     def is_parent(self, relations):
+        """Function to detect whether this object (class) is a parent class or not
+
+        Parameters
+        ----------
+        relations : list
+            The list that contains the detected triangales cooridinates (which indicate the relations)
+        """
         for relation in relations:
             [x, y, w, h] = self.methods_coordinates
             x_co = x + (w/2)
@@ -49,8 +128,19 @@ class Classes:
                 self.isParent = True 
 
 
-    # function to separate data type words
     def data_type_matching(self, ocr_dictionary):
+        """Function to separate the data type from the variable name or the function name 
+
+        Parameters
+        ----------
+        ocr_dictionary : dict
+            dict {str: list} the detected word and its associated coordinates
+
+        Returns
+        -------
+        data_type 
+            dict {str: list} the data type and its associated coordinates
+        """
         data_type = {}
         data_type_list = ['int', 'string', 'float', 'None', 'str', "-None", "):Nene", "ink"]
         for word, coordinates_list in ocr_dictionary.items():
@@ -60,6 +150,19 @@ class Classes:
 
 
     def matching (self, ocr_dictionary, data_type):
+        """Function to match each detected word that detected from OCR, and the data type with its corresponding place in the class
+            (class name or attributes or methods)
+
+        Parameters
+        ----------
+        ocr_dictionary : dict
+            dict {str: list} the detected word and its associated coordinates
+
+        data_type : dict
+            dict {str: list} the data type and its associated coordinates
+
+        """
+        
         # first we ignore data type words
         data_type_list = ['int', 'string', 'float', 'None', 'str']
         for word, coordinates_list in ocr_dictionary.items():
@@ -85,7 +188,19 @@ class Classes:
 
       
     def matching_hand_written (self, ocr_dictionary, data_type):
-    # first we ignore data type words
+        """Function to match each detected word that detected from OCR, and the data type with its corresponding place in the class
+            (class name or attributes or methods)
+            
+        Parameters
+        ----------
+        ocr_dictionary : dict
+            dict {str: list} the detected word and its associated coordinates
+
+        data_type : dict
+            dict {str: list} the data type and its associated coordinates
+
+        """
+        #first we ignore data type words
         data_type_list = ['int', 'string', 'float', 'None', 'str', "-None", "):Nene", "ink"]
         for word, coordinates_list in ocr_dictionary.items():
             if (word in data_type_list):

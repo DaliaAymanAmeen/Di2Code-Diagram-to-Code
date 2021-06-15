@@ -8,7 +8,7 @@ def data_type_filter (word):
     Parameters
     ----------
     word : str
-        Fhe whole line which could be the attribute part (variable name : data type) or method part (function name + return type)
+        The whole line which could be the attribute part (variable name : data type) or method part (function name + return type)
 
     Returns
     -------
@@ -181,13 +181,11 @@ def write_cpp_code (class_list, parent):
 
         for method in object.methods:
             index, initial_value, return_type, data_type_length, data_type, variable = data_type_filter (method)
-            print (variable)
 
             for i in bad_chars :
                 variable = variable.replace(i, '')
                 data_type = data_type.replace(i, '')
                 method = method.replace(i, '')
-            print (variable)
             
             if ("(" in method):
                 last_index = method.find("(")
@@ -223,7 +221,7 @@ def write_cpp_code (class_list, parent):
                 f.write(return_type + " " + object.name + "::" + method[index + data_type_length:last_index] + "()" +"\n")
                 f.write("{\n    //write your funtion implementation here\n" + "    return " + str(initial_value) + ";\n" +"}\n")
             else:
-                f.write(return_type + " " + method[index + data_type_length:] + "()" +"\n")
+                f.write(return_type + " " + object.name + "::" + method[index + data_type_length:] + "()" +"\n")
                 f.write("{\n    //write your funtion implementation here\n" + "    return " + str(initial_value) + ";\n" + "}\n")  
     
             #constructor & destructor

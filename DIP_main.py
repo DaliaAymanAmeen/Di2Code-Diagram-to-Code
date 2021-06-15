@@ -62,7 +62,7 @@ for object in classes_list:
         object.matching(ocr_dictionary, data_type)
     elif (image_type == "handwritten"): 
         object.matching_hand_written(ocr_dictionary, data_type)
-    object.show_info()
+    #object.show_info()
     if (object.isParent):
         parent_class = object.name
 
@@ -82,7 +82,7 @@ url = 'https://app.diagrams.net/'
 webbrowser.register('chrome',
 	None,
 	webbrowser.BackgroundBrowser("C://Program Files (x86)//Google//Chrome//Application//chrome.exe"))
-#webbrowser.get('chrome').open(url)
+webbrowser.get('chrome').open(url)
 
 cv2.waitKey(0)
 cv2.destroyAllWindows()
