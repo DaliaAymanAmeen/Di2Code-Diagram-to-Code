@@ -4,11 +4,14 @@ import classes
 import csv
 import os
 import numpy as np
+bad_chars= [';','!',"*", "?", "'", ",", "‘", ":", ".",'`']
+        
 def draw_diagram(classes_list,ocr_dictionary,output_image):
     img = cv2.imread("test_images/white.jpg")
     #img = cv2.resize(img, None, fx=0.5, fy=0.5, interpolation=cv2.INTER_CUBIC)
     x=0
     y=0
+    #**********************************Drawing Classes****************************
     for object in classes_list:
         [x1,y1,w1,h1]=object.name_coordinates
         [x2,y2,w2,h2]=object.attributes_coordinates
@@ -20,8 +23,15 @@ def draw_diagram(classes_list,ocr_dictionary,output_image):
         else:
             font_color=(255,0,0)
             font_size=3
+
+        w2=w1
+        w3=w1
         img=cv2.rectangle(img,(x1,y1),(x1+w1,y1+h1),font_color ,font_size)
+        x2=x1
+        y2=y1+h1
         img=cv2.rectangle(img,(x2,y2),(x2+w2,y2+h2),font_color ,font_size)
+        x3=x2
+        y3=y2+h2
         img=cv2.rectangle(img,(x3,y3),(x3+w3,y3+h3),font_color ,font_size)
     #p1=(x,y)
     #p2=(x-50,y+50)
@@ -40,11 +50,21 @@ def draw_diagram(classes_list,ocr_dictionary,output_image):
             image = cv2.line(img, start_point, end_point, (0,0,255), 2)
         
 
-    
+   #*********************Printing Words************************************ 
     for word, coordinates_list in ocr_dictionary.items():
                 for coordinates in coordinates_list:
                     x=coordinates[0]
                     y=coordinates[1]
+                    #Editing the word before printing
+                    for i in bad_chars :
+                        word = word.replace(i, '')
+
+                    if "ink" in word:
+                        word = word.replace("ink", "int")
+                    if  ")Nene" in word:
+                        word = word.replace(")Nene", "None")
+                    if  "-None" in word:
+                        word = word.replace("-None", "None")
 
                     cv2.putText(img, word, (x, y+15), cv2.FONT_HERSHEY_COMPLEX, 0.5, (0, 0, 0))
 
@@ -62,7 +82,28 @@ def create_csv(class_list,parent):
 
         class_name=str(object.name)
         attr=(object.attributes)
+        for word ,k in zip(attr, range(len(attr))):
+            for i in bad_chars :
+                word = word.replace(i, '')
+            if "ink" in word:
+                word = word.replace("ink", "int")
+            if  ")Nene" in word:
+                word = word.replace(")Nene", "None")
+            if  "-None" in word:
+                word = word.replace("-None", "None")
+            attr[k]=word
         meth=(object.methods)
+
+        for word ,k in zip(meth, range(len(meth))):
+            for i in bad_chars :
+                word = word.replace(i, '')
+            if "ink" in word:
+                word = word.replace("ink", "int")
+            if  ")Nene" in word:
+                word = word.replace(")Nene", "None")
+            if  "-None" in word:
+                word = word.replace("-None", "None")
+            meth[k]=word
         class_attributes = ' '.join([str(elem) for elem in attr])
         class_methods= ' '.join([str(elem) for elem in meth])
         
