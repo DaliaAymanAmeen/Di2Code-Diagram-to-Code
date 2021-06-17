@@ -82,7 +82,7 @@ url = 'https://app.diagrams.net/'
 webbrowser.register('chrome',
 	None,
 	webbrowser.BackgroundBrowser("C://Program Files (x86)//Google//Chrome//Application//chrome.exe"))
-webbrowser.get('chrome').open(url)
+#webbrowser.get('chrome').open(url)
 
 cv2.waitKey(0)
 cv2.destroyAllWindows()

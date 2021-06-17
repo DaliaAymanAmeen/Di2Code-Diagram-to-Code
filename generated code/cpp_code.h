@@ -3,42 +3,29 @@
 #include <string>
 using namespace std;
 
-class Person
+class Person : public 
 {
 private: 
-  //write your private attributes here
+ //write your private attributes here
 public:
-   int age = 0;
+   string Name = "";
 
-   int  get_age();
+   void  S2ETD();
    Person();
    ~Person();
 };
 
 
-class Student : public Person
+class student : public 
 {
 private: 
  //write your private attributes here
 public:
-   string id = "";
+   int Class = 0;
 
-   float  get_gpa();
-   Student();
-   ~Student();
-};
-
-
-class Professor : public Person
-{
-private: 
- //write your private attributes here
-public:
-   string title = "";
-
-   void  teach();
-   Professor();
-   ~Professor();
+   void  enroll();
+   student();
+   ~student();
 };
 
 

@@ -53,7 +53,7 @@ def shape_detection (image, image_type):
     # find contours
     contours, _ = cv2.findContours(thrash, cv2.RETR_TREE, cv2.CHAIN_APPROX_NONE)
 
-    cv2.imshow("img", img)
+    #cv2.imshow("img", img)
     
     # list of (x,y,w,h) to store the coordinates of each detected rectangle
     coordinates = []
@@ -120,7 +120,8 @@ def shape_detection (image, image_type):
         x_prev = x
         
     # show the image after detecting the shapes and draw contours on the detected shapes 
-    cv2.imshow("shapes", img)
+    #cv2.imshow("shapes", img)
+    cv2.imwrite("drawings_output/shape_detection.png",img)
     return class_dictionary, relations
 
 
