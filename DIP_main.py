@@ -15,6 +15,7 @@ if (image_type == "computer"):
 
 elif (image_type == "handwritten"):
     image = "test_images/hand_written_final.jpeg" 
+    #image_ocr = "test_images/hand_written_final.jpeg"
     image_ocr = "test_images/hand_written_final_ocr.jpeg" 
 
 #shape dictionary

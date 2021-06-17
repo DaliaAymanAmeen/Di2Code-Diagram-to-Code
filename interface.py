@@ -10,7 +10,7 @@ import re
 import webbrowser
 
 classes_list = []
-parent_class = ""
+parent_class = "" 
 
 def detection_button (image_type, path_ocr, path_shape):
     if (image_type == "computer"):
@@ -37,6 +37,7 @@ def detection_button (image_type, path_ocr, path_shape):
         elif (image_type == "handwritten"): 
             object.matching_hand_written(ocr_dictionary, data_type)
         if (object.isParent):
+            global parent_class
             parent_class = object.name
 
     draw.draw_diagram(classes_list, ocr_dictionary, "drawings_output/output.png")
@@ -56,9 +57,9 @@ def detection_button (image_type, path_ocr, path_shape):
 
     return output_image, csv_file
 
-    
 
 def code_generation (language):
+    global parent_class
     if (language == "python"):
         class_creator.write_python_code(classes_list, parent_class)
         python_code = "generated code/python_code.py"
@@ -83,10 +84,11 @@ def open_code_editor (language):
 #testing
 output_image, csv_file = detection_button ("handwritten", "test_images/hand_written_final_ocr.jpeg", "test_images/hand_written_final.jpeg")
 img = cv.imread(output_image)
-#os.startfile(csv_file)
 
 python_Code = code_generation ("cpp")
+python_Code = code_generation ("python")
 open_code_editor("cpp")
+open_code_editor("python")
 
 cv.imshow("esm",img)
 cv.waitKey(0)

@@ -3,10 +3,10 @@
 #include <string>
 using namespace std;
 
-class Person : public 
+class Person
 {
 private: 
- //write your private attributes here
+  //write your private attributes here
 public:
    string Name = "";
 
@@ -16,7 +16,7 @@ public:
 };
 
 
-class student : public 
+class student : public Person
 {
 private: 
  //write your private attributes here
