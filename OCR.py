@@ -61,6 +61,7 @@ def computer_OCR(image):
     # to show image
     #cv2.imshow('Result image', img)
     #cv2.waitKey(0)
+    cv2.imwrite("drawings_output/ocr_computer.png",img)
     return class_dictionary
 
 
@@ -119,7 +120,8 @@ def handwritten_OCR(image):
 
 
     # to show image
-    cv2.imshow('Result image', img)
+    #cv2.imshow('Result image', img)
+    cv2.imwrite("drawings_output/ocr_handwritten.png",img)
     cv2.waitKey(0)
     return class_dictionary
 

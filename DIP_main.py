@@ -15,6 +15,7 @@ if (image_type == "computer"):
 
 elif (image_type == "handwritten"):
     image = "test_images/hand_written_final.jpeg" 
+    #image_ocr = "test_images/hand_written_final.jpeg"
     image_ocr = "test_images/hand_written_final_ocr.jpeg" 
 
 #shape dictionary
@@ -82,7 +83,7 @@ url = 'https://app.diagrams.net/'
 webbrowser.register('chrome',
 	None,
 	webbrowser.BackgroundBrowser("C://Program Files (x86)//Google//Chrome//Application//chrome.exe"))
-webbrowser.get('chrome').open(url)
+#webbrowser.get('chrome').open(url)
 
 cv2.waitKey(0)
 cv2.destroyAllWindows()

@@ -1,4 +1,4 @@
-## Hello World
+## open draw.io then from Arrange> Insert> Advanced > CSV then copy the text in draw_csv file 
 # label: %ClassName% <br> %seperator1% </br><br> %Attributes% </br> <br> %seperator2% </br> <br> %Methods% </br>
 # style: shape=rectangle;fillColor=#dae8fc;strokeColor=#6c8ebf;whiteSpace=wrap;html=1;rounded=1;
 # namespace: csvimport-
@@ -13,6 +13,5 @@
 # link: url
 ## CSV starts under this line
 ClassName,seperator1,Attributes,seperator2,Methods,Parent
-Person,-----------------------------------,int age,-----------------------------------,int get_age(),
-Student,-----------------------------------,str id,-----------------------------------,float get_gpa(),Person
-Professor,-----------------------------------,str title,-----------------------------------,None teach(),Person
+Person,-----------------------------------,str Name,-----------------------------------,None S2ETD,
+student,-----------------------------------,int Class,-----------------------------------,None enroll,Person

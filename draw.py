@@ -68,7 +68,7 @@ def draw_diagram(classes_list,ocr_dictionary,output_image):
 
                     cv2.putText(img, word, (x, y+15), cv2.FONT_HERSHEY_COMPLEX, 0.5, (0, 0, 0))
 
-    cv2.imshow("out", img)    
+    #cv2.imshow("out", img)    
 
     cv2.imwrite(output_image,img)
 
@@ -124,4 +124,5 @@ def create_csv(class_list,parent):
         writer=csv.writer(draw)
         #writer.writerow(keys)
         writer.writerows(users)
-    os.startfile("drawings_output\draw_csv.csv")
+        
+    #os.startfile("drawings_output\draw_csv.csv")

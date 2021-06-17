@@ -1,4 +1,4 @@
-## Hello World
+## open draw.io then from Arrange> Insert> Advanced > CSV then copy the text in draw_csv file 
 # label: %ClassName% <br> %seperator1% </br><br> %Attributes% </br> <br> %seperator2% </br> <br> %Methods% </br>
 # style: shape=rectangle;fillColor=#dae8fc;strokeColor=#6c8ebf;whiteSpace=wrap;html=1;rounded=1;
 # namespace: csvimport-

@@ -136,7 +136,7 @@ def write_python_code(class_list, parent):
             f.write("       pass" + "\n\n" )
 
     f.close()
-    os.startfile("generated code\python_code.py")
+    #os.startfile("generated code\python_code.py")
 
 
 
