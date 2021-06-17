@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Di2Code</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="flex-container">
+        <div>
+            <h1>Choose Image</h1>
+             <form action = "http://localhost:5000/upload" method = "POST" enctype = "multipart/form-data">
+                 <input type = "file" name = "File" multiple/><br>
+                 <input type="radio" id="option1" name="options" value="Handwritten">
+                 <label for="option1">  Handwritten Image </label><br>
+                 <input type="radio" id="option2" name="options" value="Computer">
+                 <label for="option2"> Computer Image </label><br>
+                 <input type = "submit" value = "Upload" />
+             </form>
+        </div>
+            <div>
+                <h2>The Detected image is as follows</h2>
+                    <img src="../uploads/doaa.png" height="60" width="60" /> <br>
+            </div>
+        <div>3</div>
+    </div>
+
+
+</body>
+</html>
