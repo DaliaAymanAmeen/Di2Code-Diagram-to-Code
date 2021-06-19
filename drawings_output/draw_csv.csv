@@ -13,6 +13,5 @@
 # link: url
 ## CSV starts under this line
 ClassName,seperator1,Attributes,seperator2,Methods,Parent
-Customer,-----------------------------------,- - - - - customer_name address email credit_card_info shipping_info,-----------------------------------,- - + + + + + + customer_name() address() +email() bill register() login() update_profile() calculate_next_bill_amount() generate_invoice_pdf_version(),User
-User,-----------------------------------,- - - user_id password login_status,-----------------------------------,+ + verify_loginQ user_id(),
-Admin,-----------------------------------,- - email admin_name,-----------------------------------,+ + update_catalog() email(),User
+Person,-----------------------------------,str Name,-----------------------------------,None S2ETD,
+student,-----------------------------------,int Class,-----------------------------------,None enroll,Person

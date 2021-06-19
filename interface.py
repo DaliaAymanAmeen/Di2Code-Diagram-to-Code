@@ -63,33 +63,14 @@ def code_generation (language):
     if (language == "python"):
         class_creator.write_python_code(classes_list, parent_class)
         python_code = "generated code/python_code.py"
+        os.startfile("generated code\python_code.py")
         return python_code
     elif (language == "cpp"):
         class_creator.write_cpp_code(classes_list, parent_class)
         cpp_h_code = "generated code/cpp_code.h"
         cpp_cpp_code = "generated code/cpp_code.cpp"
+        os.startfile("generated code\cpp_code.h")
+        os.startfile("generated code\cpp_code.cpp")
         return cpp_h_code, cpp_cpp_code
 
-
-def open_code_editor (language):
-    if (language == "python"):
-       os.startfile("generated code\python_code.py")
-    elif (language == "cpp"):
-       os.startfile("generated code\cpp_code.h")
-       os.startfile("generated code\cpp_code.cpp")
-
-
     
-###############################################
-#testing
-# output_image, csv_file = detection_button ("handwritten", "test_images/hand_written_final_ocr.jpeg", "test_images/hand_written_final.jpeg")
-# img = cv.imread(output_image)
-#
-# python_Code = code_generation ("cpp")
-# python_Code = code_generation ("python")
-# open_code_editor("cpp")
-# open_code_editor("python")
-#
-# cv.imshow("esm",img)
-# cv.waitKey(0)
-# cv.destroyAllWindows()
