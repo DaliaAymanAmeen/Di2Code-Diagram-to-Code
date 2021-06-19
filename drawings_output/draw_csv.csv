@@ -13,5 +13,5 @@
 # link: url
 ## CSV starts under this line
 ClassName,seperator1,Attributes,seperator2,Methods,Parent
-Person,-----------------------------------,str Name,-----------------------------------,None S2ETD,
-student,-----------------------------------,int Class,-----------------------------------,None enroll,Person
+Person,-----------------------------------,str Name,-----------------------------------,None S2tTD,
+student,-----------------------------------,int Class,-----------------------------------,enroll,Person

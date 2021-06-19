@@ -3,16 +3,7 @@ class Person:
    def __init__(self):
        self.Name = ""
 
-   def  S2ETD(self):
-       # write your funtion implementation here
-       # please note that the return value is void
-       pass
-
-class student(Person):
-   def __init__(self):
-       self.Class = 0
-
-   def  enroll(self):
+   def  S2tTD(self):
        # write your funtion implementation here
        # please note that the return value is void
        pass

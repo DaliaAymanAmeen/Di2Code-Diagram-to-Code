@@ -16,16 +16,3 @@ public:
 };
 
 
-class student : public Person
-{
-private: 
- //write your private attributes here
-public:
-   int Class = 0;
-
-   void  enroll();
-   student();
-   ~student();
-};
-
-

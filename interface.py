@@ -82,14 +82,14 @@ def open_code_editor (language):
     
 ###############################################
 #testing
-output_image, csv_file = detection_button ("handwritten", "test_images/hand_written_final_ocr.jpeg", "test_images/hand_written_final.jpeg")
-img = cv.imread(output_image)
-
-python_Code = code_generation ("cpp")
-python_Code = code_generation ("python")
-open_code_editor("cpp")
-open_code_editor("python")
-
-cv.imshow("esm",img)
-cv.waitKey(0)
-cv.destroyAllWindows()
+# output_image, csv_file = detection_button ("handwritten", "test_images/hand_written_final_ocr.jpeg", "test_images/hand_written_final.jpeg")
+# img = cv.imread(output_image)
+#
+# python_Code = code_generation ("cpp")
+# python_Code = code_generation ("python")
+# open_code_editor("cpp")
+# open_code_editor("python")
+#
+# cv.imshow("esm",img)
+# cv.waitKey(0)
+# cv.destroyAllWindows()

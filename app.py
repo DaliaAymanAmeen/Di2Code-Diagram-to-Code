@@ -1,5 +1,5 @@
 import os
-
+import interface
 from flask import Flask, render_template, request
 from werkzeug.utils import secure_filename
 
@@ -7,6 +7,7 @@ basedir = os.path.abspath(os.path.dirname(__file__))
 UPLOAD_FOLDER = './uploads'
 ALLOWED_EXTENSIONS = set(['png', 'jpg', 'jpeg', 'gif'])
 paths = []
+WORDS = []
 app = Flask(__name__)
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
@@ -37,14 +38,42 @@ def upload_file():
                 paths.append(path)
         detection_type = request.form['options']
         if detection_type == "Computer":
-            pass
-            #images = function(computer, paths[0], paths[0])
+            outputs = interface.detection_button("computer", paths[0], paths[0])
         else:
-            pass
-            #images = function(computer, paths[0], paths[1])
-    print(os.path.join(basedir, paths[0].split('/', 2)[1]+ "\\" + paths[0].split('/', 2)[2]))
-    print(paths[1])
-    return render_template('index.html', returned1=str(os.path.join(basedir, paths[0].split('/', 2)[1] + "\\" + paths[0].split('/', 2)[2])), returned2=str(paths[1]))
+            print(paths[0])
+            print(paths[1])
+            outputs = interface.detection_button("handwritten", paths[1], paths[0])
+        with open(outputs[1], "r") as file:
+            for line in file.readlines():
+                WORDS.append(line)
+        print(WORDS)
+    return render_template('index.html', returned1=WORDS)
+
+
+@app.route('/code', methods=['GET', 'POST'])
+def code():
+        code_type = request.form['second_options']
+        if code_type == "C++":
+            outputs = interface.code_generation("cpp")
+            header = []
+            source = []
+            with open(outputs[0], "r") as file:
+                for line in file.readlines():
+                    header.append(line)
+            with open(outputs[1], "r") as file:
+                for line in file.readlines():
+                    source.append(line)
+            return render_template('index.html', returned1=WORDS, returned4=header, returned5= source)
+        else:
+            outputs = interface.code_generation("python")
+            source = []
+            with open(outputs, "r") as file:
+                for line in file.readlines():
+                    source.append(line)
+            return render_template('index.html', returned1=WORDS, returned6=source)
+
+
+
 
 if __name__ == '__main__':
     app.run(debug=True)

@@ -20,9 +20,55 @@
         </div>
             <div>
                 <h2>The Detected image is as follows</h2>
-                    <img src="../uploads/doaa.png" height="60" width="60" /> <br>
+                    <img src="{{ returned2 }}" height="200" width="200" /> <br>
             </div>
-        <div>3</div>
+        <div>
+                <p>
+                {% for item in returned1 -%}
+                    {{ item }} <br>
+                {% endfor %}
+                </p>
+        </div>
+        <div>
+            <h2> Choose Type of language to convert the UML To Code Then click convert </h2>
+            <form action = "http://localhost:5000/code" method = "POST" enctype = "multipart/form-data">
+                 <input type="radio" id="option3" name="second_options" value="C++">
+                 <label for="option3">  C++ Code </label><br>
+                 <input type="radio" id="option4" name="second_options" value="Python">
+                 <label for="option4"> Python Code </label><br>
+                 <input type = "submit" value = "Convert" />
+            </form>
+            <h3> The Code </h3>
+                <div style="width: 100%;">
+                                      {% if returned4 %}
+                    <div style="width: 50%; height: 100px; float: left; background: green;">
+
+                        <h> This is header file cpp_code.h</h><br><br>
+                         {% for item in returned4 -%}
+                            {{ item }} <br>
+                        {% endfor %}
+                        {% endif %}
+                    </div>
+                    {% if returned5 %}
+                    <div style="margin-left: 50%; height: 100px; background: blue;">
+
+                        <h> This is source file cpp_code.cpp</h><br><br>
+                        {% for item in returned5 -%}
+                            {{ item }} <br>
+                        {% endfor %}
+                        {% endif %}
+                    </div>
+                </div>
+            {% if returned6 %}
+                <div style="width: 100%; height: 100px; float: left; background: green;">
+
+                    <h> This is source file python_code.cpp</h><br><br>
+                    {% for item in returned6 -%}
+                        {{ item }} <br>
+                    {% endfor %}
+                    {% endif %}
+                </div>
+        </div>
     </div>
 
 
