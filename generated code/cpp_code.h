@@ -3,16 +3,3 @@
 #include <string>
 using namespace std;
 
-class Person
-{
-private: 
-  //write your private attributes here
-public:
-   string Name = "";
-
-   void  S2ETD();
-   Person();
-   ~Person();
-};
-
-

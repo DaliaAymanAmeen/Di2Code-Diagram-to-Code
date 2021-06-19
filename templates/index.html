@@ -18,10 +18,6 @@
                  <input type = "submit" value = "Upload" />
              </form>
         </div>
-            <div>
-                <h2>The Detected image is as follows</h2>
-                    <img src="{{ returned2 }}" height="200" width="200" /> <br>
-            </div>
         <div>
                 <p>
                 {% for item in returned1 -%}
@@ -41,7 +37,7 @@
             <h3> The Code </h3>
                 <div style="width: 100%;">
                                       {% if returned4 %}
-                    <div style="width: 50%; height: 100px; float: left; background: green;">
+                    <div style="width: 50%; height: 100px; float: left; background: #ECDBBA;">
 
                         <h> This is header file cpp_code.h</h><br><br>
                          {% for item in returned4 -%}
@@ -50,7 +46,7 @@
                         {% endif %}
                     </div>
                     {% if returned5 %}
-                    <div style="margin-left: 50%; height: 100px; background: blue;">
+                    <div style="margin-left: 50%; height: 100px; background: #FFF5EB;">
 
                         <h> This is source file cpp_code.cpp</h><br><br>
                         {% for item in returned5 -%}
@@ -60,7 +56,7 @@
                     </div>
                 </div>
             {% if returned6 %}
-                <div style="width: 100%; height: 100px; float: left; background: green;">
+                <div style="width: 100%; height: 100px; background: #FFF5EB;">
 
                     <h> This is source file python_code.cpp</h><br><br>
                     {% for item in returned6 -%}

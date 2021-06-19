@@ -123,6 +123,7 @@ def handwritten_OCR(image):
     #cv2.imshow('Result image', img)
     cv2.imwrite("drawings_output/ocr_handwritten.png",img)
     cv2.waitKey(0)
+    print(class_dictionary)
     return class_dictionary
 
 

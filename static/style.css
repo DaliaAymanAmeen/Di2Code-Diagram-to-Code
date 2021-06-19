@@ -5,7 +5,10 @@ h1 {
   color:#845460;
 }
 p {
-  color: red;
+  color: #5E454B;
+}
+div{
+font-size: 25px
 }
 .flex-container {
   display: flex;

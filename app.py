@@ -47,7 +47,9 @@ def upload_file():
             for line in file.readlines():
                 WORDS.append(line)
         print(WORDS)
-    return render_template('index.html', returned1=WORDS)
+        path = "./" + outputs[0]
+        print(path)
+    return render_template('index.html', returned1=WORDS, returned2=path)
 
 
 @app.route('/code', methods=['GET', 'POST'])
