@@ -27,6 +27,7 @@ def home():
 @app.route('/upload',methods=['GET','POST'])
 def upload_file():
     global paths
+    paths = []
     if request.method == 'POST' and 'File' in request.files:
         for f in request.files.getlist('File'):
             if f and allowed_file(f.filename):
@@ -44,6 +45,7 @@ def upload_file():
             print(paths[1])
             outputs = interface.detection_button("handwritten", paths[1], paths[0])
         with open(outputs[1], "r") as file:
+            WORDS = []
             for line in file.readlines():
                 WORDS.append(line)
         print(WORDS)

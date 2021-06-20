@@ -13,6 +13,8 @@ classes_list = []
 parent_class = "" 
 
 def detection_button (image_type, path_ocr, path_shape):
+    global classes_list
+    classes_list = []
     if (image_type == "computer"):
         image = path_shape
 

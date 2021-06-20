@@ -110,7 +110,8 @@ def shape_detection (image, image_type):
         if (x == 0): 
             continue
             
-        if (x != x_prev and (x < (x_prev-10) or x > (x_prev+10))): # if it's not the same x (this is mean it's a new class)
+        # if it's not the same x (this is mean it's a new class)
+        if (x != x_prev and (x < (x_prev-10) or x > (x_prev+10))): 
             i += 1
 
         if (i == -1):

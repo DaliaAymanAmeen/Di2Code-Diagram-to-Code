@@ -1,6 +1,18 @@
 import classes
 
 def create_instanse (shapes_dictionary, classes_list):
+    """Function to create instance for each detected class 
+
+    Parameters
+    ----------
+    shapes_dictionary : dict {int: list}
+                a dictionary that its key represents each detected class and its value is a list that contains 
+                the class components cooridinates 
+                
+    classes_list : list 
+                list of objects each object is the detected class
+
+    """
     for i in range (len(shapes_dictionary)):
         new_class = classes.Classes()
         # class name info
