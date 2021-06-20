@@ -1,0 +1,12 @@
+Flask==2.0.1
+numpy==1.20.3
+opencv-python==4.5.2.52
+pytesseract==0.3.7
+regex==2021.4.4
+collection==0.1.6
+os-sys==2.1.4
+
+
+
+
+
